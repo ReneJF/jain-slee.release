@@ -44,7 +44,7 @@
 		<media.branch>master</media.branch>
 		<sip.branch>master</sip.branch>
 		<smpp.branch>master</smpp.branch>
-		<ss7.branch>master</ss7.branch>
+		<ss7.branch>1.x</ss7.branch>
 		<tftp.branch>master</tftp.branch>
 		<xcap.branch>master</xcap.branch>
 		<xmpp.branch>master</xmpp.branch>
