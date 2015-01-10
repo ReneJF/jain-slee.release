@@ -25,11 +25,14 @@
 	<property name="mms.distro.zip.path" value="media-server.zip" />
 
 	<property name="ss7.version" value="1.0.0.FINAL" />
+	<!--
 	<property name="ss7.download.url" value="http://downloads.sourceforge.net/project/mobicents/Mobicents%20Protocols%20Suite/${ss7.version}/mobicents-ss7-${ss7.version}.zip" />
+	-->
+    <property name="ss7.download.url" value="https://mobicents.ci.cloudbees.com/job/Mobicents-jSS7-Release-2.x/lastSuccessfulBuild/artifact/release/upload/mobicents-ss7-2.1.0-SNAPSHOT.zip" />	
 	<property name="ss7.distro.zip.path" value="mobicents-ss7.zip" />
 
 
-	<property name="diameter.version" value="1.4.0.FINAL" />
+	<property name="diameter.version" value="1.6.0.FINAL" />
 	<property name="diameter.download.url" value="http://downloads.sourceforge.net/project/mobicents/Mobicents%20Diameter/mobicents-diameter-${diameter.version}/mobicents-diameter-mux-jboss5-${diameter.version}.sar.zip" />
 	<!--
 	<property name="diameter.download.url" value ="http://ci.jboss.org/jenkins/view/Mobicents/job/Mobicents-Diameter-1.x-Release/lastSuccessfulBuild/artifact/mobicents-diameter-mux-jboss5-1.4.0-SNAPSHOT-201109060020.sar.zip"/>	
@@ -90,8 +93,13 @@
 
 	<target name="build-core" description="">
 		<exec failonerror="true" executable="${mvn.executable}" dir="${ant.file.mobicents.release}/../checkout/core">
-			<arg line="install -Drelease.dir=${release.dir} -Djboss.home=${jboss.home} -Prelease,set-svn-revision,${release.profile}" />
+			<arg line="install -Drelease.dir=${release.dir} -Djboss.home=${jboss.home} -Prelease,set-git-hash,${release.profile}" />
+		</exec>	
+		<!--
+		<exec failonerror="true" executable="${mvn.executable}" dir="${ant.file.mobicents.release}/../checkout/core">
+			<arg line="install -Drelease.dir=${release.dir} -Djboss.home=${jboss.home} -Djboss.path=../../${jboss.home.relative.path} -Prelease,set-git-hash,${release.profile}" />
 		</exec>
+		-->
 		<exec failonerror="true" executable="${mvn.executable}" dir="${ant.file.mobicents.release}/../checkout/core">
 			<arg line="javadoc:aggregate -DreportOutputDirectory=${release.dir}/docs/container -DdestDir=javadoc" />
 		</exec>
@@ -148,7 +156,7 @@
 
 	<target name="build-package" description="builds a SLEE package, use package.name and javadoc.dirs to pass the package singularities">
 		<exec failonerror="true" executable="${mvn.executable}" dir="${packages.dir}/${package.name}">
-			<arg line="install -Drelease.dir=${release.dir} -Djboss.home=${tmp.jboss.home} -Djboss.path=../../${jboss.home.relative.path} -Dnode=${jboss.config} -Prelease,set-svn-revision,${release.profile}" />
+			<arg line="install -Drelease.dir=${release.dir} -Djboss.home=${tmp.jboss.home} -Djboss.path=../../${jboss.home.relative.path} -Dnode=${jboss.config} -Prelease,set-git-hash,${release.profile}" />
 		</exec>
 		<for delimiter="," param="dir.name" list="${javadoc.dirs}">
 			<sequential>
@@ -162,7 +170,7 @@
 	<target name="build-ss7" description="">
 		<antcall target="build-package">
 			<param name="package.name" value="ss7" />
-			<param name="javadoc.dirs" value="resources/map,resources/jcc" />
+			<param name="javadoc.dirs" value="resources/map" />
 		</antcall>
 	</target>
 
@@ -331,13 +339,17 @@
 
 	<available file="${ant.file.mobicents.release}/../${ss7.distro.zip.path}" property="got.ss7" />
 	<target name="get-ss7" unless="got.ss7">
+		<!-- currently no ss7 binary, sources checked out by maven, to ${ant.file.mobicents.release}/../jss7, and binary should be built and placed at dest below
 		<echo>Downloading Mobicents SS7</echo>
 		<get dest="${ant.file.mobicents.release}/../${ss7.distro.zip.path}" src="${ss7.download.url}" />
+		-->
 	</target>
 
 	<target name="unzip-ss7">
+		<!--
 		<delete dir="${release.dir}/extra/mobicents-ss7" failonerror="false" />
-		<unzip src="${ss7.distro.zip.path}" dest="${release.dir}/extra/mobicents-ss7" />
+		<unzip src="${ss7.distro.zip.path}" dest="${release.dir}/extra/mobicents-ss7" />		
+		-->
 	</target>
 
 	<available file="${ant.file.mobicents.release}/../${diameter.distro.zip.path}" property="got.diameter" />

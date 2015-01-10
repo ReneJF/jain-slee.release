@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.mobicents</groupId>
 		<artifactId>mobicents-parent</artifactId>
-		<version>2.23-SNAPSHOT</version>
+		<version>2.24</version>
 	</parent>
 	
 	<artifactId>sources-checkout</artifactId>
@@ -22,7 +22,7 @@
 		<!-- GIT -->
 		<!--
 		<core.scmVersion>${tag.version}</core.scmVersion>
-		<core.scmVersionType>tag</core.scmVersionType>
+		<core.scmVersionType>tag</core.scmVersionType>		
 		<diameter.scmVersion>${tag.version}</diameter.scmVersion>
 		<diameter.scmVersionType>tag</diameter.scmVersionType>
 		<eclipslee.scmVersion>${tag.version}</eclipslee.scmVersion>
@@ -39,8 +39,10 @@
 		<sip.scmVersionType>tag</sip.scmVersionType>
 		<smpp.scmVersion>${tag.version}</smpp.scmVersion>
 		<smpp.scmVersionType>tag</smpp.scmVersionType>
-		<ss7.scmVersion>${tag.version}</ss7.scmVersion>
+		-->
+		<ss7.scmVersion>release-2.0.0.BETA4</ss7.scmVersion>
 		<ss7.scmVersionType>tag</ss7.scmVersionType>
+<!--
 		<tftp.scmVersion>${tag.version}</tftp.scmVersion>
 		<tftp.scmVersionType>tag</tftp.scmVersionType>
 		<xcap.scmVersion>${tag.version}</xcap.scmVersion>
@@ -48,6 +50,7 @@
 		<xmpp.scmVersion>${tag.version}</xmpp.scmVersion>
 		<xmpp.scmVersionType>tag</xmpp.scmVersionType>
 		-->
+		
 		<cluster.scmVersion>mobicents-cluster-1.13.1.FINAL</cluster.scmVersion>
 		<cluster.scmVersionType>tag</cluster.scmVersionType>
 		<jain-sip-ext.scmVersion>1.1</jain-sip-ext.scmVersion>
@@ -56,8 +59,10 @@
 		<jain-sip-ha.scmVersionType>tag</jain-sip-ha.scmVersionType>
 		<sip-balancer.scmVersion>sip-balancer-1.5.0.FINAL</sip-balancer.scmVersion>
 		<sip-balancer.scmVersionType>tag</sip-balancer.scmVersionType>
+		<jss7.scmVersion>release-2.1.0.FINAL</jss7.scmVersion>
+		<jss7.scmVersionType>tag</jss7.scmVersionType>
 		
-		<core.scmVersion>master</core.scmVersion>
+		<core.scmVersion>2.x</core.scmVersion>
 		<core.scmVersionType>branch</core.scmVersionType>
 		<diameter.scmVersion>master</diameter.scmVersion>
 		<diameter.scmVersionType>branch</diameter.scmVersionType>		
@@ -70,13 +75,15 @@
 		<http.scmVersion>master</http.scmVersion>
 		<http.scmVersionType>branch</http.scmVersionType>	
 		<media.scmVersion>master</media.scmVersion>
-		<media.scmVersionType>branch</media.scmVersionType>	
+		<media.scmVersionType>branch</media.scmVersionType>
 		<sip.scmVersion>master</sip.scmVersion>
 		<sip.scmVersionType>branch</sip.scmVersionType>	
 		<smpp.scmVersion>master</smpp.scmVersion>
 		<smpp.scmVersionType>branch</smpp.scmVersionType>		
+		<!--
 		<ss7.scmVersion>1.x</ss7.scmVersion>
 		<ss7.scmVersionType>branch</ss7.scmVersionType>	
+		-->
 		<tftp.scmVersion>master</tftp.scmVersion>
 		<tftp.scmVersionType>branch</tftp.scmVersionType>		
 		<xcap.scmVersion>master</xcap.scmVersion>
@@ -91,7 +98,9 @@
 		<jain-sip-ha.scmVersion>master</jain-sip-ha.scmVersion>
 		<jain-sip-ha.scmVersionType>branch</jain-sip-ha.scmVersionType>		
 		<sip-balancer.scmVersion>master</sip-balancer.scmVersion>
-		<sip-balancer.scmVersionType>branch</sip-balancer.scmVersionType>		
+		<sip-balancer.scmVersionType>branch</sip-balancer.scmVersionType>
+		<jss7.scmVersion>master</jss7.scmVersion>
+		<jss7.scmVersionType>branch</jss7.scmVersionType>		
 		 -->
 	</properties>
 	
@@ -396,10 +405,25 @@
 							</connectionUrl>
 						</configuration>
 					</execution>
-					
-																			
-					
-
+					<!-- mobicents ss7 sources -->
+					<execution>
+						<id>jss7-checkout</id>
+						<goals>
+							<goal>checkout</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<scmVersion>${jss7.scmVersion}</scmVersion>
+							<scmVersionType>${jss7.scmVersionType}</scmVersionType>
+							<checkoutDirectory>
+								${checkout.basedir}/jss7
+							</checkoutDirectory>
+							<connectionUrl>
+								scm:git:https://code.google.com/p/jss7/
+							</connectionUrl>
+						</configuration>
+					</execution>
+										
 				</executions>
 			</plugin>			
 		</plugins>
